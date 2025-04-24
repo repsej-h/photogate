@@ -16,7 +16,9 @@ This script uses a single photogate pcb to measure the time between two triggers
 For demonstration purposes, the internal arduino led is turned on in between the start and stop trigger.
 A picture of the hardware setup is presented below. By default, the sensorpin should be connected to the Arduino's `A0` pin.
 
-`insert picture`
+![PXL_20250424_204420804](https://github.com/user-attachments/assets/0700b60f-fb24-4033-8771-118e4cd9fd5e)
+
+
 
 
 
@@ -28,4 +30,5 @@ In the near future this script will be updated to automatically restart its meas
 
 A picture of the hardware setup is presented below. By default, the sensorpin should be connected to the Arduino's `A0` pin.
 
-`insert picutere`
+![PXL_20250424_204420804](https://github.com/user-attachments/assets/74b591bb-9d0c-4c97-a166-f8f53a11dba7)
+
