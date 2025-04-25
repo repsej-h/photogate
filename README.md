@@ -12,7 +12,7 @@ A screenshot of the schematics can by found in the `references` folder
 
 ### Components
 
-Only 5 componets are placed on the PCB. Starting of with `R1` and `R2`, these are 220 $\Omega$ and 2000 $\Omega$ resistors respectivily. These are placed on the board as 0805 SMD resisitors. Next is a 3 pin connector with a 90 degree bend, making the photogate easily compatible with a breadboard. Alternatively, when mounting the PCB, female to male Arduino jumper wires can be used. Next we have the more vital componets. The first one is the 940 nm LED, which constantly emmits light when connected to a power source. Finally a 940 nm `insert type`phototransistor either blocks or allows elektricity to flow trough the circuit. This flow is then read by an analog Arduino pin.
+Only 5 components are placed on the PCB. Starting off with `R1` and `R2`, these are 220 $\Omega$ and 2000 $\Omega$ resistors respectively. These are placed on the board as 0805 SMD **resistors**. Next is a 3 pin connector with a 90 degree bend, making the photogate easily compatible with a breadboard. Alternatively, when mounting the PCB, female to male Arduino jumper wires can be used. Next we have the more vital components. The first one is the 940 nm LED, which constantly emits light when connected to a power source. Finally a 940 nm `insert type`phototransistor either blocks or allows electricity to flow through the circuit. This flow is then read by an analog Arduino pin.
 
 
 
