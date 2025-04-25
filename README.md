@@ -6,9 +6,15 @@ The photogate project is an Arduino compatible PCB, designed to take precise mea
 
 ### The PCB
 
-The U-shaped PCB most importantly features a 3 pin connector. From left to right the pins need to be connected to `GND`, `analog input` & `+5V` on your Arduino. There are two mounting holes in the PCB, which could be used to attach the photogate to a 3d printed mounting piece (which is not yet developed). lastly every PCB features a unique QR-code, for easy identification of the PCB's
+The U-shaped PCB most importantly features a 3 pin connector. From left to right the pins need to be connected to `GND`, `analog input` & `+5V` on your Arduino. There are two mounting holes in the PCB, which could be used to attach the photogate to a 3d printed mounting piece (which is not yet developed). Last every PCB features a unique QR-code, for easy identification of the PCB's
 
 A screenshot of the schematics can by found in the `references` folder
+
+### Components
+
+Only 5 componets are placed on the PCB. Starting of with `R1` and `R2`, these are 220 $\Omega$ and 2000 $\Omega$ resistors respectivily. These are placed on the board as 0805 SMD resisitors. Next is a 3 pin connector with a 90 degree bend, making the photogate easily compatible with a breadboard. Alternatively, when mounting the PCB, female to male Arduino jumper wires can be used. Next we have the more vital componets. The first one is the 940 nm LED, which constantly emmits light when connected to a power source. Finally a 940 nm `insert type`phototransistor either blocks or allows elektricity to flow trough the circuit. This flow is then read by an analog Arduino pin.
+
+
 
 # Scripts
 
@@ -20,9 +26,7 @@ This script uses a single photogate pcb to measure the time between two triggers
 For demonstration purposes, the internal arduino led is turned on in between the start and stop trigger.
 A picture of the hardware setup is presented below. By default, the sensorpin should be connected to the Arduino's `A0` pin.
 
-`insert picture`
-
-
+<img src="https://github.com/user-attachments/assets/0700b60f-fb24-4033-8771-118e4cd9fd5e" width="579" height="771">
 
 ## photogate_pendulum
 
@@ -32,4 +36,4 @@ In the near future this script will be updated to automatically restart its meas
 
 A picture of the hardware setup is presented below. By default, the sensorpin should be connected to the Arduino's `A0` pin.
 
-`insert picutere`
+<img src="https://github.com/user-attachments/assets/0700b60f-fb24-4033-8771-118e4cd9fd5e" width="579" height="771">
