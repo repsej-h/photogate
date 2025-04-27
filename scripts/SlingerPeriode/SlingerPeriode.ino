@@ -12,10 +12,11 @@ unsigned long stopT = 0;
 const int threshold = 200; // can be adjusted according to light levels; remove // on line 26 - 27 to print light level to console
 
 
-unsigned long periods[counts];
+
 int periodCount = 0; // Keep track of how many periods have been recorded
 float average = 0;  
-int counts = 10; // amout of periods before calculating the average
+const int counts = 10; // amout of periods before calculating the average
+unsigned long periods[counts];
 
 void setup() {
   Serial.begin(9600); // Initialize serial communication
