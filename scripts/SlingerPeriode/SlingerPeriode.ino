@@ -9,10 +9,10 @@ bool timing = false;
 unsigned long deltaT = 0;
 unsigned long startT = 0;
 unsigned long stopT = 0;
-const int threshold = 200; // can be adjusted according to light levels; remove // on line 27 - 28 to print light level to console
-const unsigned int sanityValue = 5000; // if in this interval no messurements are recored, the user gets warned that the following average may contain inorrect messuremets
+const int threshold = 200; // can be adjusted according to light levels; remove // on line 26 - 27 to print light level to console
 
-unsigned long periods[10];
+
+unsigned long periods[counts];
 int periodCount = 0; // Keep track of how many periods have been recorded
 float average = 0;  
 int counts = 10; // amout of periods before calculating the average
@@ -32,30 +32,24 @@ void loop() {
     if (!timing) {
       timing = true;
       startT = millis();
-      //Serial.println("Sensor triggered");
     } else if (periodCount < counts) { // Record period only if the array is not full
       stopT = millis();
       deltaT = stopT - startT;
 
-      // sanity check
-      if (deltaT > sanityValue){ 
-        startT = stopT;
-        //Serial.println("WARNING: Reading to large and did not pass the sanity check!");
-        //Serial.println("Please consider ignoring the following average, since it may contain messurements from previouse exeperiments!");
-      } else {
-        Serial.print("Meting ");
-        Serial.print(periodCount + 1);
-        //Serial.println(" recorded");
-        Serial.print("\t");
-        periods[periodCount] = deltaT;
-        startT = stopT;
-        periodCount++; 
-      }
+      Serial.print("Meting ");
+      Serial.print(periodCount + 1);
+      Serial.print("\t");
+
+      periods[periodCount] = deltaT;
+      startT = stopT;
+      periodCount++; 
+
       if(deltaT < 2000){
         Serial.print("Time Elapsed: ");
         Serial.print(deltaT);
         Serial.println(" ms");
       }
+
       // Calculate and print the average only after x periods
       if (periodCount == counts) {
         unsigned long sum = 0;
@@ -83,20 +77,16 @@ void loop() {
   preSensorValue = SensorValue; // Update the previous sensor value
   delay(10); // Small delay to avoid rapid readings
 }
-//
-//
-//
-//
-//
-//
-//
-//  Denk je dat de slingerperiode (de tijd voor één heen- en weergaande beweging) veel beïnvloed wordt door de hoogte van waarop de slinger losgelaten wordt?
-//
-// DOE de test hier. Laat de slinger los vanaf een welbepaalde hoogte. De opstelling voert 10 metingen uit en geeft je het gemiddelde.
-// HERHAAl de test, maar laat nu log vanaf een grotere of kleinere hoogte.
-// MAAK de hoek nooit groter dan 70°.
+/*
 
 
 
+Denk je dat de slingerperiode (de tijd voor één heen- en weergaande beweging) veel beïnvloed wordt door de hoogte van waarop de slinger losgelaten wordt?
+DOE de test hier. Laat de slinger los vanaf een welbepaalde hoogte. De opstelling voert 10 metingen uit en geeft je het gemiddelde.
+HERHAAl de test, maar laat nu log vanaf een grotere of kleinere hoogte.
+MAAK de hoek nooit groter dan 70°.
+
+
+*/
 
 
