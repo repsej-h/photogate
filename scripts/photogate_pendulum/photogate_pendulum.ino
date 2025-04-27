@@ -63,7 +63,7 @@ void loop() {
 
         average = (float)sum / periodCount;
         Serial.print("Average period (after 10 periods): ");
-        Serial.println(average);
+        Serial.println(average*2);
 
         // Reset the period count for the next set of x periods
         periodCount = 0;
