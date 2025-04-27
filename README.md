@@ -18,7 +18,7 @@ Only 5 components are placed on the PCB. Starting off with `R1` and `R2`, these 
 
 # Scripts
 
-Currently the photogate project features 2 scripts:
+Currently the photogate project features 3 scripts:
 
 ## photogate.ino
 
@@ -28,7 +28,7 @@ A picture of the hardware setup is presented below. By default, the sensorpin sh
 
 <img src="https://github.com/user-attachments/assets/0700b60f-fb24-4033-8771-118e4cd9fd5e" width="579" height="771">
 
-## photogate_pendulum
+## photogate_pendulum.ino
 
 This script is used to measure the period of a pendulum using a single photogate. This is done by taking the average of 10 measured periods. Currently, the script features a sanity check which warns the user when a period larger than 5s is included in the average. This is done because it's very likely that the user adjusted the pendulum setup.
 
@@ -37,3 +37,9 @@ In the near future this script will be updated to automatically restart its meas
 A picture of the hardware setup is presented below. By default, the sensorpin should be connected to the Arduino's `A0` pin.
 
 <img src="https://github.com/user-attachments/assets/0700b60f-fb24-4033-8771-118e4cd9fd5e" width="579" height="771">
+
+
+
+## SlingerPeriode.ino
+
+This script has the same functionality as the `photogate_pendulum.ino` script, but has been modified to be used on a college information day. Most important changes are reformatting the script's output and adding instructions for the demo in de code documentation.
