@@ -14,8 +14,6 @@ A screenshot of the schematics can by found in the `references` folder
 
 Only 5 components are placed on the PCB. Starting off with `R1` and `R2`, these are 220 $\Omega$ and 2000 $\Omega$ resistors respectively. These are placed on the board as 0805 SMD **resistors**. Next is a 3 pin connector with a 90 degree bend, making the photogate easily compatible with a breadboard. Alternatively, when mounting the PCB, female to male Arduino jumper wires can be used. Next we have the more vital components. The first one is the 940 nm LED, which constantly emits light when connected to a power source. Finally a 940 nm `insert type`phototransistor either blocks or allows electricity to flow through the circuit. This flow is then read by an analog Arduino pin.
 
-
-
 # Scripts
 
 Currently the photogate project features 3 scripts:
@@ -24,7 +22,7 @@ Currently the photogate project features 3 scripts:
 
 This script uses a single photogate pcb to measure the time between two triggers.
 For demonstration purposes, the internal arduino led is turned on in between the start and stop trigger.
-A picture of the hardware setup is presented below. By default, the sensorpin should be connected to the Arduino's `A0` pin.
+A picture of the hardware setup is presented below. In order for the interrupt to work, the `SensorPin` **has to be wired** to the `digital 2 / 3` pin on an Arduino Uno.
 
 <img src="https://github.com/user-attachments/assets/0700b60f-fb24-4033-8771-118e4cd9fd5e" width="579" height="771">
 
@@ -34,11 +32,9 @@ This script is used to measure the period of a pendulum using a single photogate
 
 In the near future this script will be updated to automatically restart its measurements after a given time interval. 
 
-A picture of the hardware setup is presented below. By default, the sensorpin should be connected to the Arduino's `A0` pin.
+A picture of the hardware setup is presented below. In order for the interrupt to work, the `SensorPin` **has to be wired** to the `digital 2 / 3` pin on an Arduino Uno.
 
 <img src="https://github.com/user-attachments/assets/0700b60f-fb24-4033-8771-118e4cd9fd5e" width="579" height="771">
-
-
 
 ## SlingerPeriode.ino
 
