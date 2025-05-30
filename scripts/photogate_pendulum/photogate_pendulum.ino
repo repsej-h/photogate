@@ -1,4 +1,4 @@
-#define SensorPin A0 // pin where we connected the sensor
+#define SensorPin 2 // pin where we connected the sensor
 
 // variables for sensor state
 int SensorValue = 0;
@@ -12,6 +12,8 @@ unsigned long stopT = 0;
 const int threshold = 200; // can be adjusted according to light levels; remove // on line 27 - 28 to print light level to console
 const unsigned int sanityValue = 5000; // if in this interval no messurements are recored, the user gets warned that the following average may contain inorrect messuremets
 
+volatile bool trigger = false;
+
 unsigned long periods[10];
 int periodCount = 0; // Keep track of how many periods have been recorded
 float average = 0;  
@@ -19,6 +21,10 @@ int counts = 10; // amout of periods before calculating the average
 
 void setup() {
   Serial.begin(9600); // Initialize serial communication
+
+  // set up sensor
+  pinMode(SensorPin, INPUT);
+  attachInterrupt(digitalPinToInterrupt(SensorPin), triggered, RISING);
 }
 
 void loop() {
@@ -28,7 +34,7 @@ void loop() {
   // Serial.print("Sensor Value: ");
   // Serial.println(SensorValue);
 
-  if (SensorValue > threshold && preSensorValue < threshold) { // switch state: no light reaching sensor after a period of light reaching the sensor
+  if (trigger) { // switch state: no light reaching sensor after a period of light reaching the sensor
     if (!timing) {
       timing = true;
       startT = millis();
@@ -69,8 +75,13 @@ void loop() {
         periodCount = 0;
       }
     }
+    trigger = false;
   }
 
-  preSensorValue = SensorValue; // Update the previous sensor value
+  //preSensorValue = SensorValue; // Update the previous sensor value
   delay(10); // Small delay to avoid rapid readings
+}
+
+void triggered(){
+  trigger = true;
 }
