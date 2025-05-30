@@ -1,4 +1,4 @@
-#define SensorPin A0 // pin where we connected the LDR and the resistor
+#define SensorPin 2 // pin where we connected the LDR and the resistor
 
 // variables for sensor state
 int SensorValue = 0;     
@@ -11,17 +11,21 @@ unsigned long startT = 0;
 unsigned long stopT = 0;
 const int threshold = 200; // can be adjusted according to light levels; remove // on line 38 to print light level to console
 
+volatile bool trigger = false;
 
 void setup() {
   Serial.begin(9600); // sets serial port for communication
   Serial.println("Photogate up and running");
+
+  // set up sensor
+  pinMode(SensorPin, INPUT);
+  attachInterrupt(digitalPinToInterrupt(SensorPin), triggered, RISING);
+
   pinMode(LED_BUILTIN, OUTPUT); 
 }
 
 void loop() {
-  SensorValue = analogRead(SensorPin); // read the value from the sensorpin
-
-  if (SensorValue > threshold && preSensorValue < threshold){   // switch state: no light reaching sensor after a periode of light reaching the sensor
+  if (trigger){   // switch state: no light reaching sensor after a periode of light reaching the sensor
     if (!timing){
       timing = true;
       startT = millis();
@@ -36,9 +40,12 @@ void loop() {
       timing = false;
       digitalWrite(LED_BUILTIN, LOW); // turn off led when done
     }
+    trigger = false;
   }
-  preSensorValue = SensorValue;
-  //Serial.println(SensorValue);
   delay(10);
   
+}
+
+void triggered(){
+  trigger = true;
 }
