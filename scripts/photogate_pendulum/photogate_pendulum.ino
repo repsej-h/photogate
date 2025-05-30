@@ -1,9 +1,5 @@
 #define SensorPin 2 // pin where we connected the sensor
 
-// variables for sensor state
-int SensorValue = 0;
-int preSensorValue = 0;
-
 //variables for time interval
 bool timing = false;
 unsigned long deltaT = 0;
@@ -28,12 +24,6 @@ void setup() {
 }
 
 void loop() {
-  SensorValue = analogRead(SensorPin); // Read the current value of the sensor
-
-  // Print the light level for debugging or adjustment of the threshold
-  // Serial.print("Sensor Value: ");
-  // Serial.println(SensorValue);
-
   if (trigger) { // switch state: no light reaching sensor after a period of light reaching the sensor
     if (!timing) {
       timing = true;
@@ -77,8 +67,6 @@ void loop() {
     }
     trigger = false;
   }
-
-  //preSensorValue = SensorValue; // Update the previous sensor value
   delay(10); // Small delay to avoid rapid readings
 }
 
