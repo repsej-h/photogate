@@ -1,9 +1,5 @@
 #define SensorPin 2 // pin where we connected the LDR and the resistor
 
-// variables for sensor state
-int SensorValue = 0;     
-int preSensorValue = 0;
-
 //variables for time interval
 bool timing = false;
 unsigned long deltaT = 0;
@@ -21,11 +17,12 @@ void setup() {
   pinMode(SensorPin, INPUT);
   attachInterrupt(digitalPinToInterrupt(SensorPin), triggered, RISING);
 
+  // set up build in led
   pinMode(LED_BUILTIN, OUTPUT); 
 }
 
 void loop() {
-  if (trigger){   // switch state: no light reaching sensor after a periode of light reaching the sensor
+  if (trigger){   
     if (!timing){
       timing = true;
       startT = millis();
