@@ -1,4 +1,4 @@
-#define SensorPin 2 // pin where we connected the LDR and the resistor
+#define SensorPin 2 
 
 //variables for time interval
 bool timing = false;
