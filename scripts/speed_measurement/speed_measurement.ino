@@ -1,7 +1,8 @@
 #define SensorPin1 2 
 #define SensorPin2 3
 
-
+int pins[] = {2,3};
+const int arrayLength = sizeof(pins) / sizeof(pins[0]);
 //variables for time interval
 bool timing = false;
 unsigned long deltaT = 0;
@@ -16,12 +17,13 @@ void setup() {
   Serial.begin(9600); // sets serial port for communication
   Serial.println("Photogate up and running");
 
-  // set up sensor
-  pinMode(SensorPin1, INPUT);
-  attachInterrupt(digitalPinToInterrupt(SensorPin1), triggered, RISING);
+  // set up sensors
 
-  pinMode(SensorPin2, INPUT);
-  attachInterrupt(digitalPinToInterrupt(SensorPin2), triggered, RISING);
+  for (int i = 0; i < arrayLength; i++){
+    pinMode( pins[i], INPUT);
+    attachInterrupt(digitalPinToInterrupt(pins[i]), triggered, RISING);
+  }
+
   // set up build in led
   pinMode(LED_BUILTIN, OUTPUT); 
 }
