@@ -48,4 +48,8 @@ This script is designed to calculate the speed of an object traveling through mu
 
 > note: since old Arduino Uno's only feature 2 interupt pins, only 2 photogates can be used. Please consult [Arduino docs](https://docs.arduino.cc/language-reference/en/functions/external-interrupts/attachInterrupt/) to check if your Arduino model can support more than 2 interrupts.
 
-### scripts working
+### Configure the script
+
+By default the script is configured to work with two photogates, connected to digital pins `2` & `3`.  In this case, simply input the distance in cm between the 2 gates right here: `unsigned int distances[pinsLength - 1] = {100};`
+
+When adding more photogates, first add your pins into the `int pins[]` seperatedby comma's. Next plug in the distances between the gates, also separated by comma's into `unsigned int distances[pinsLength - 1]` and you are good to go. 
