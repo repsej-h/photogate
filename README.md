@@ -39,3 +39,19 @@ A picture of the hardware setup is presented below. In order for the interrupt t
 ## SlingerPeriode.ino
 
 This script has the same functionality as the `photogate_pendulum.ino` script, but has been modified to be used on a college information day. Most important changes are reformatting the script's output and adding instructions for the demo in de code documentation.
+
+## speed_measurement.ino
+
+This script is designed to calculate the speed of an object traveling through multiple photogates. Unlike previous projects, an array of photogates is used to collect timestamps along the path of the object. This data is used to calculate the speed of the object for each interval.
+
+> note: since old Arduino Uno's only feature 2 interupt pins, only 2 photogates can be used. Please consult [Arduino docs](https://docs.arduino.cc/language-reference/en/functions/external-interrupts/attachInterrupt/) to check if your Arduino model can support more than 2 interrupts.
+
+### Configure the script
+
+By default the script is configured to work with two photogates, connected to digital pins `2` & `3`.  In this case, simply input the distance in cm between the 2 gates right here: `unsigned int distances[pinsLength - 1] = {100};`
+
+When adding more photogates, first add your pins into the `int pins[]` seperatedby comma's. Next plug in the distances between the gates, also separated by comma's into `unsigned int distances[pinsLength - 1]` and you are good to go. 
+
+
+
+Until now the script has been tested with up to 3 photogates. Also note that the script doesn't bother in which order gates get triggered. This means that a set up can be used in both directions. The end user needs to interpret which is gate one, two, etc based on the object's trajectory.
