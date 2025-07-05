@@ -1,3 +1,5 @@
+![shot1_white](https://github.com/user-attachments/assets/06cce2c5-bf7e-4f6c-92dc-9b962d381d8f)
+
 # Photogate
 
 ## project description
