@@ -1,4 +1,8 @@
-![shot1_white](https://github.com/user-attachments/assets/06cce2c5-bf7e-4f6c-92dc-9b962d381d8f)
+
+
+
+![Watch the video](https://github.com/user-attachments/assets/5a69227e-c142-498d-8717-64d389a69f4b)
+
 
 # Photogate
 
