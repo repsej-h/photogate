@@ -1,8 +1,4 @@
-
-
-
 ![Watch the video](https://github.com/user-attachments/assets/5a69227e-c142-498d-8717-64d389a69f4b)
-
 
 # Photogate
 
@@ -12,7 +8,7 @@ The photogate project is an Arduino compatible PCB, designed to take precise mea
 
 ### The PCB
 
-The U-shaped PCB most importantly features a 3 pin connector. From left to right the pins need to be connected to `GND`, `analog input` & `+5V` on your Arduino. There are two mounting holes in the PCB, which could be used to attach the photogate to a 3d printed mounting piece (which is not yet developed). Last every PCB features a unique QR-code, for easy identification of the PCB's
+The U-shaped PCB most importantly features a 3 pin connector. From left to right the pins need to be connected to `GND`, `digital interrupt` & `+5V` on your Arduino. There are two mounting holes in the PCB, which could be used to attach the photogate to a 3d printed mounting piece (which is not yet developed). Last every PCB features a unique QR-code, for easy identification of the PCB's
 
 A screenshot of the schematics can by found in the `references` folder
 
@@ -44,7 +40,7 @@ A picture of the hardware setup is presented below. In order for the interrupt t
 
 ## SlingerPeriode.ino
 
-This script has the same functionality as the `photogate_pendulum.ino` script, but has been modified to be used on a college information day. Most important changes are reformatting the script's output and adding instructions for the demo in de code documentation.
+This script has the same functionality as the `photogate_pendulum.ino` script, but has been modified to be used on a college information day. Most important changes are reformatting the script's output and adding instructions for the demo in de code documentation. Also, this script is based on a older version of the pendulum script and still uses analog readings. Theirfore connect the `SensorPin` to pin `A0`!
 
 ## speed_measurement.ino
 
@@ -57,7 +53,5 @@ This script is designed to calculate the speed of an object traveling through mu
 By default the script is configured to work with two photogates, connected to digital pins `2` & `3`.  In this case, simply input the distance in cm between the 2 gates right here: `unsigned int distances[pinsLength - 1] = {100};`
 
 When adding more photogates, first add your pins into the `int pins[]` seperatedby comma's. Next plug in the distances between the gates, also separated by comma's into `unsigned int distances[pinsLength - 1]` and you are good to go. 
-
-
 
 Until now the script has been tested with up to 3 photogates. Also note that the script doesn't bother in which order gates get triggered. This means that a set up can be used in both directions. The end user needs to interpret which is gate one, two, etc based on the object's trajectory.
