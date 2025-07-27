@@ -16,6 +16,14 @@ A screenshot of the schematics can by found in the `references` folder
 
 Only 5 components are placed on the PCB. Starting off with `R1` and `R2`, these are 220 $\Omega$ and 2000 $\Omega$ resistors respectively. These are placed on the board as 0805 SMD **resistors**. Next is a 3 pin connector with a 90 degree bend, making the photogate easily compatible with a breadboard. Alternatively, when mounting the PCB, female to male Arduino jumper wires can be used. Next we have the more vital components. The first one is the 940 nm LED, which constantly emits light when connected to a power source. Finally a 940 nm `insert type`phototransistor either blocks or allows electricity to flow through the circuit. This flow triggers an interrupt request (IRQ)
 
+## Sponsership
+
+Special thanks to [PCBWay](https://www.pcbway.com/) for providing me with quick and easy pcb prototyping! 
+
+Working with them has been nothing but smooth. Their boards are top-notch, their turnaround times are fast, and the entire process is incredibly easy from start to finish. Whether you're prototyping something new or scaling up for production, they make sure you get exactly what you need — quickly and reliably.
+
+If you are interested in ordering some photogates, I highly recommend checking them out via [this link](https://www.pcbway.com/project/shareproject/Arduino_Photogate_PCB_ff1ebb34.html).
+
 # Scripts
 
 Currently the photogate project features 3 scripts:
