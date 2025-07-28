@@ -2,7 +2,7 @@
 
 # Photogate
 
-## project description
+## Project description
 
 The photogate project is an Arduino compatible PCB, designed to take precise measurements of for example a pendulum's period or the speed of a miniature car in a test rig. Since the photogate project is driven by a school project, some screenshots and component workings will be included in this repository.
 
