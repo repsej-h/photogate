@@ -23,6 +23,7 @@ Special thanks to [PCBWay](https://www.pcbway.com/) for providing me with quick 
 Working with them has been nothing but smooth. Their boards are top-notch, their turnaround times are fast, and the entire process is incredibly easy from start to finish. Whether you're prototyping something new or scaling up for production, they make sure you get exactly what you need — quickly and reliably.
 
 If you are interested in ordering some photogates, I highly recommend checking them out via [this link](https://www.pcbway.com/project/shareproject/Arduino_Photogate_PCB_ff1ebb34.html).
+<img width="949" height="315" alt="PCBway logo" src="https://github.com/user-attachments/assets/dc2805d7-92d6-40d3-ae50-717ff0a48daf" />
 
 # Scripts
 
