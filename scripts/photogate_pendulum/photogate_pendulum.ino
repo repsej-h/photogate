@@ -6,14 +6,14 @@ unsigned long deltaT = 0;
 unsigned long startT = 0;
 unsigned long stopT = 0;
 const int threshold = 200; // can be adjusted according to light levels; remove // on line 27 - 28 to print light level to console
-const unsigned int sanityValue = 5000; // if in this interval no messurements are recored, the user gets warned that the following average may contain inorrect messuremets
+const unsigned int sanityValue = 5000; // if in this interval no measurements are recorded, the system resets
 
 volatile bool trigger = false;
 
 unsigned long periods[10];
 int periodCount = 0; // Keep track of how many periods have been recorded
 float average = 0;  
-int counts = 10; // amout of periods before calculating the average
+int counts = 10; // amount of periods before calculating the average
 
 void setup() {
   Serial.begin(9600); // Initialize serial communication
@@ -21,6 +21,11 @@ void setup() {
   // set up sensor
   pinMode(SensorPin, INPUT);
   attachInterrupt(digitalPinToInterrupt(SensorPin), triggered, RISING);
+
+  Serial.println(F("========================================"));
+  Serial.println(F("       SENSOR MONITORING ACTIVE        "));
+  Serial.println(F("========================================"));
+  Serial.println(F("Waiting for first trigger..."));
 }
 
 void loop() {
@@ -28,27 +33,42 @@ void loop() {
     if (!timing) {
       timing = true;
       startT = millis();
-      Serial.println("Sensor triggered");
+      Serial.println(F("\n[!] Timing Started..."));
     } else if (periodCount < counts) { // Record period only if the array is not full
       stopT = millis();
       deltaT = stopT - startT;
 
-      // sanity check
+      // Check if the gap is too large (e.g., a new experiment started)
       if (deltaT > sanityValue){ 
-        startT = stopT;
-        Serial.println("WARNING: Reading to large and did not pass the sanity check!");
-        Serial.println("Please consider ignoring the following average, since it may contain messurements from previouse exeperiments!");
+        // AUTOMATIC RESET LOGIC
+        periodCount = 0; // Wipe the previous progress
+        startT = stopT;  // Restart the timer from this new trigger
+        Serial.println(F("\n----------------------------------------"));
+        Serial.println(F(" !!! AUTO-RESET: Gap detected > 5s !!! "));
+        Serial.println(F("  Previous measurements discarded."));
+        Serial.println(F("----------------------------------------"));
       } else {
-        Serial.print("Sensor triggered, period ");
-        Serial.print(periodCount + 1);
-        Serial.println(" recorded");
         periods[periodCount] = deltaT;
-        startT = stopT;
         periodCount++; 
+        
+        // ENHANCED OUTPUT: Progress Bar and Stats
+        Serial.print(F("Reading "));
+        Serial.print(periodCount);
+        Serial.print(F("/"));
+        Serial.print(counts);
+        Serial.print(F(" | Time: "));
+        Serial.print(deltaT);
+        Serial.print(F(" ms | Progress: ["));
+        
+        // Simple visual bar
+        for (int i = 0; i < counts; i++) {
+          if (i < periodCount) Serial.print("=");
+          else Serial.print(".");
+        }
+        Serial.println("]");
+        
+        startT = stopT;
       }
-
-      Serial.print("Time Elapsed: ");
-      Serial.println(deltaT);
 
       // Calculate and print the average only after x periods
       if (periodCount == counts) {
@@ -58,8 +78,13 @@ void loop() {
         }
 
         average = (float)sum / periodCount;
-        Serial.print("Average period (after 10 periods): ");
-        Serial.println(average*2);
+        
+        Serial.println(F("\n****************************************"));
+        Serial.print(F("  AVERAGE PERIOD: "));
+        Serial.print(average * 2);
+        Serial.println(F(" ms"));
+        Serial.println(F("****************************************\n"));
+        Serial.println(F("Ready for next set..."));
 
         // Reset the period count for the next set of x periods
         periodCount = 0;
