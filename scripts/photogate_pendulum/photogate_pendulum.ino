@@ -23,12 +23,11 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(SensorPin), triggered, RISING);
 
   // Initial Table Header
-  Serial.println(F("\n============================================================"));
-  Serial.println(F(" ID  |  TIME (ms)  |  PROGRESS                              "));
-  Serial.println(F("============================================================"));
+  printHeader();
 }
 
-// Helper function to keep the table columns aligned by adding spaces
+
+// Helper functions
 void printPadded(unsigned long val) {
   if (val < 1000) Serial.print(" ");
   if (val < 100)  Serial.print(" ");
@@ -36,6 +35,11 @@ void printPadded(unsigned long val) {
   Serial.print(val);
 }
 
+void printHeader(){
+    Serial.println(F("\n============================================================"));
+  Serial.println(F(" ID  |  TIME (ms)  |  PROGRESS                              "));
+  Serial.println(F("============================================================"));
+}
 
 
 void loop() {
@@ -95,6 +99,7 @@ void loop() {
         Serial.println(F(" ms"));
         Serial.println(F("============================================================\n"));
         Serial.println(F("Ready for next set..."));
+        printHeader();
         
         // Reset the period count for the next set of x periods
         periodCount = 0;
