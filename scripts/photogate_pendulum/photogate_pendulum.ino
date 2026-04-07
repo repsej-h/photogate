@@ -22,45 +22,55 @@ void setup() {
   pinMode(SensorPin, INPUT);
   attachInterrupt(digitalPinToInterrupt(SensorPin), triggered, RISING);
 
-  Serial.println(F("========================================"));
-  Serial.println(F("       SENSOR MONITORING ACTIVE        "));
-  Serial.println(F("========================================"));
-  Serial.println(F("Waiting for first trigger..."));
+  // Initial Table Header
+  Serial.println(F("\n============================================================"));
+  Serial.println(F(" ID  |  TIME (ms)  |  PROGRESS                              "));
+  Serial.println(F("============================================================"));
 }
+
+// Helper function to keep the table columns aligned by adding spaces
+void printPadded(unsigned long val) {
+  if (val < 1000) Serial.print(" ");
+  if (val < 100)  Serial.print(" ");
+  if (val < 10)   Serial.print(" ");
+  Serial.print(val);
+}
+
+
 
 void loop() {
   if (trigger) { // switch state: no light reaching sensor after a period of light reaching the sensor
     if (!timing) {
       timing = true;
       startT = millis();
-      Serial.println(F("\n[!] Timing Started..."));
+      Serial.println(F(" >>> Timing Started..."));
     } else if (periodCount < counts) { // Record period only if the array is not full
       stopT = millis();
       deltaT = stopT - startT;
 
-      // Check if the gap is too large (e.g., a new experiment started)
+      // sanity check / automatic reset
       if (deltaT > sanityValue){ 
-        // AUTOMATIC RESET LOGIC
-        periodCount = 0; // Wipe the previous progress
-        startT = stopT;  // Restart the timer from this new trigger
-        Serial.println(F("\n----------------------------------------"));
-        Serial.println(F(" !!! AUTO-RESET: Gap detected > 5s !!! "));
-        Serial.println(F("  Previous measurements discarded."));
-        Serial.println(F("----------------------------------------"));
+        // Reset logic: discard previous measurements if user waited too long
+        periodCount = 0; 
+        startT = stopT;  
+        Serial.println(F("------------------------------------------------------------"));
+        Serial.println(F(" !!! AUTO-RESET: Gap > 5s. Measurements discarded.       !!!"));
+        Serial.println(F("------------------------------------------------------------"));
       } else {
         periods[periodCount] = deltaT;
         periodCount++; 
         
-        // ENHANCED OUTPUT: Progress Bar and Stats
-        Serial.print(F("Reading "));
+        // Print Table Row
+        Serial.print(F(" #"));
+        if(periodCount < 10) Serial.print("0"); // Alignment for single digits
         Serial.print(periodCount);
-        Serial.print(F("/"));
-        Serial.print(counts);
-        Serial.print(F(" | Time: "));
-        Serial.print(deltaT);
-        Serial.print(F(" ms | Progress: ["));
+        Serial.print(F(" |  "));
         
-        // Simple visual bar
+        printPadded(deltaT); // Align the time value
+        
+        Serial.print(F(" ms   |  ["));
+        
+        // Visual Progress Bar
         for (int i = 0; i < counts; i++) {
           if (i < periodCount) Serial.print("=");
           else Serial.print(".");
@@ -79,13 +89,13 @@ void loop() {
 
         average = (float)sum / periodCount;
         
-        Serial.println(F("\n****************************************"));
-        Serial.print(F("  AVERAGE PERIOD: "));
-        Serial.print(average * 2);
+        Serial.println(F("============================================================"));
+        Serial.print(F(" RESULT: Average Period = "));
+        Serial.print(average * 2); // Calculated average * 2 as per original logic
         Serial.println(F(" ms"));
-        Serial.println(F("****************************************\n"));
+        Serial.println(F("============================================================\n"));
         Serial.println(F("Ready for next set..."));
-
+        
         // Reset the period count for the next set of x periods
         periodCount = 0;
       }
