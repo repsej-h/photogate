@@ -33,17 +33,41 @@ Currently the photogate project features 3 scripts:
 
 This script uses a single photogate pcb to measure the time between two triggers.
 For demonstration purposes, the internal arduino led is turned on in between the start and stop trigger.
-A picture of the hardware setup is presented below. In order for the interrupt to work, the `SensorPin` **has to be wired** to the `digital 2 / 3` pin on an Arduino Uno.
+A picture of the hardware setup is presented below. In order for the interrupt to work, the `SensorPin` **has to be wired** to the `digital 2 / 3` pin on an Arduino Uno. (cfr interrupts)
 
 <img src="https://github.com/user-attachments/assets/0700b60f-fb24-4033-8771-118e4cd9fd5e" width="579" height="771">
 
 ## photogate_pendulum.ino
 
-This script is used to measure the period of a pendulum using a single photogate. This is done by taking the average of 10 measured periods. Currently, the script features a sanity check which warns the user when a period larger than 5s is included in the average. This is done because it's very likely that the user adjusted the pendulum setup.
+This script is used to measure the period of a pendulum using a single photogate. It calculates the high-precision average of 10 measured periods to ensure experimental accuracy.
 
-In the near future this script will be updated to automatically restart its measurements after a given time interval. 
+### Key Features
 
-A picture of the hardware setup is presented below. In order for the interrupt to work, the `SensorPin` **has to be wired** to the `digital 2 / 3` pin on an Arduino Uno.
+- **Automatic Data Reset:** The script features an sanity check. If the interval between triggers exceeds **5 seconds** (5000 ms), the script assumes the experiment has been paused or adjusted. It will automatically discard previous partial measurements and restart the count from zero.
+
+- **Smooth Table Output:** Data is printed to the Serial Monitor in a strictly aligned table format. This includes:
+  
+  - **Time:** Padded numerical values to prevent column shifting.
+  
+  - **Progress Bar:** A visual representation of how many readings are left before the average is calculated.
+
+### Hardware Setup
+
+In order for the timing interrupt to work correctly, the **SensorPin** must be wired to a pin capable of handeling interrupts.
+
+- **Arduino Uno:** Connect to **Digital Pin 2** or **Digital Pin 3**.
+
+### How to Use
+
+1. Connect the hardware as described above.
+
+2. Upload the script and open the **Serial Monitor** (set to **9600 Baud**).
+
+3. Release the pendulum. The first pass will initialize the timer.
+
+4. The table will populate automatically. If you stop the pendulum for more than 5 seconds, the table will reset itself for your next trial.
+
+5. After 10 periods, the final average (T×2) will be displayed in a result block.
 
 <img src="https://github.com/user-attachments/assets/0700b60f-fb24-4033-8771-118e4cd9fd5e" width="579" height="771">
 
